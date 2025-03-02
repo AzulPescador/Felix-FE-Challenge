@@ -1,0 +1,100 @@
+{
+  "languages": {
+    "english": "English",
+    "spanish": "Español"
+  },
+  "errors": {
+    "loadingTransactions": "Error al cargar las transacciones. Por favor, inténtelo de nuevo más tarde."
+  },
+  "common": {
+    "close": "Cerrar"
+  },
+  "dashboard": {
+    "title": "Panel de Remesas",
+    "search": {
+      "placeholder": "Buscar por WhatsApp o ID...",
+      "label": "Buscar"
+    },
+    "filters": {
+      "status": {
+        "label": "Estado",
+        "all": "Todos los Estados",
+        "pending": "Pendiente",
+        "inProgress": "En Proceso",
+        "completed": "Completado",
+        "failed": "Fallido",
+        "inprogress": "En Proceso"
+      },
+      "date": {
+        "startDate": "Fecha Inicial",
+        "endDate": "Fecha Final"
+      }
+    },
+    "table": {
+      "id": "ID",
+      "senderWhatsapp": "WhatsApp Remitente",
+      "receiverWhatsapp": "WhatsApp Destinatario",
+      "amountSent": "Monto Enviado (USD)",
+      "amountReceived": "Monto Recibido",
+      "exchangeRate": "Tasa de Cambio",
+      "status": "Estado",
+      "dateTime": "Fecha y Hora",
+      "paymentMethod": "Método de Pago"
+    },
+    "pagination": {
+      "showing": "Mostrando",
+      "to": "a",
+      "of": "de",
+      "results": "resultados",
+      "previous": "Anterior",
+      "next": "Siguiente"
+    }
+  },
+  "transaction": {
+    "status": {
+      "sent": "Enviado",
+      "processing": "Procesando",
+      "delivered": "Entregado",
+      "failed": "Fallido",
+      "pending": "Pendiente",
+      "inProgress": "En Proceso",
+      "completed": "Completado"
+    },
+    "modal": {
+      "title": "Detalles de la Transacción",
+      "id": "ID",
+      "contact_details": "Detalles de Contacto",
+      "sender": "Remitente",
+      "receiver": "Destinatario",
+      "country": "País",
+      "status": "Estado",
+      "transfer_breakdown": "Desglose de la Transferencia",
+      "amount_sent": "Monto Enviado",
+      "transfer_fee": "Comisión",
+      "exchange_rate": "Tasa de Cambio",
+      "total_received": "Total Recibido",
+      "payment_details": "Detalles del Pago",
+      "method": "Método",
+      "additional_details": "Detalles Adicionales",
+      "status_tracking": "Seguimiento del Estado",
+      "transaction_date": "Fecha de Transacción"
+    }
+  },
+  "user": {
+    "verification_status": {
+      "verified": "Verificado",
+      "pending": "Pendiente",
+      "unverified": "No Verificado"
+    }
+  },
+  "payment": {
+    "method": {
+      "credit_card": "Tarjeta de Crédito",
+      "debit_card": "Tarjeta de Débito",
+      "bank_transfer": "Transferencia Bancaria",
+      "cash": "Efectivo",
+      "crypto": "Criptomoneda",
+      "mobile_wallet": "Billetera Móvil"
+    }
+  }
+} 

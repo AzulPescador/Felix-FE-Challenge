@@ -1,0 +1,100 @@
+{
+  "languages": {
+    "english": "English",
+    "spanish": "Español"
+  },
+  "errors": {
+    "loadingTransactions": "Error loading transactions. Please try again later."
+  },
+  "common": {
+    "close": "Close"
+  },
+  "dashboard": {
+    "title": "Remittance Dashboard",
+    "search": {
+      "placeholder": "Search by WhatsApp or ID...",
+      "label": "Search"
+    },
+    "filters": {
+      "status": {
+        "label": "Status",
+        "all": "All Status",
+        "pending": "Pending",
+        "inProgress": "In Progress",
+        "completed": "Completed",
+        "failed": "Failed",
+        "inprogress": "In Progress"
+      },
+      "date": {
+        "startDate": "Start Date",
+        "endDate": "End Date"
+      }
+    },
+    "table": {
+      "id": "ID",
+      "senderWhatsapp": "Sender WhatsApp",
+      "receiverWhatsapp": "Receiver WhatsApp",
+      "amountSent": "Amount Sent (USD)",
+      "amountReceived": "Amount Received",
+      "exchangeRate": "Exchange Rate",
+      "status": "Status",
+      "dateTime": "Date & Time",
+      "paymentMethod": "Payment Method"
+    },
+    "pagination": {
+      "showing": "Showing",
+      "to": "to",
+      "of": "of",
+      "results": "results",
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
+  "transaction": {
+    "status": {
+      "sent": "Sent",
+      "processing": "Processing",
+      "delivered": "Delivered",
+      "failed": "Failed",
+      "pending": "Pending",
+      "inProgress": "In Progress",
+      "completed": "Completed"
+    },
+    "modal": {
+      "title": "Transaction Details",
+      "id": "ID",
+      "contact_details": "Contact Details",
+      "sender": "Sender",
+      "receiver": "Receiver",
+      "country": "Country",
+      "status": "Status",
+      "transfer_breakdown": "Transfer Breakdown",
+      "amount_sent": "Amount Sent",
+      "transfer_fee": "Transfer Fee",
+      "exchange_rate": "Exchange Rate",
+      "total_received": "Total Received",
+      "payment_details": "Payment Details",
+      "method": "Method",
+      "additional_details": "Additional Details",
+      "status_tracking": "Status Tracking",
+      "transaction_date": "Transaction Date"
+    }
+  },
+  "user": {
+    "verification_status": {
+      "verified": "Verified",
+      "pending": "Pending",
+      "unverified": "Unverified"
+    }
+  },
+  "payment": {
+    "method": {
+      "credit_card": "Credit Card",
+      "debit_card": "Debit Card",
+      "bank_transfer": "Bank Transfer",
+      "cash": "Cash",
+      "crypto": "Cryptocurrency",
+      "mobile_wallet": "Mobile Wallet"
+    }
+  }
+} 
