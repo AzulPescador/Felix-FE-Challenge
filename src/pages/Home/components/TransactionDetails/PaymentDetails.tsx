@@ -18,12 +18,12 @@ const PaymentDetails: React.FC<PaymentDetailsProps> = ({
   const { t } = useTranslation();
 
   const formatPaymentMethod = (method: string) => {
-    if (!method) return t('payment.methods.unknown');
+    if (!method) return t('payment.method.unknown');
 
     const normalizedMethod = method.trim().toUpperCase().replace(/\s+/g, '_');
 
     if (PAYMENT_METHODS[normalizedMethod]) {
-      return t(`payment.methods.${normalizedMethod.toLowerCase()}`);
+      return t(`payment.method.${normalizedMethod.toLowerCase()}`);
     }
 
     return normalizedMethod

@@ -1,9 +1,10 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   TransactionFilters,
   TransactionStatus,
 } from '../../../../types/transaction';
+import Button from '../../../../components/ui/buttons/Button';
 
 interface TransactionFiltersProps {
   filters: TransactionFilters;
@@ -17,130 +18,183 @@ const statusOptions: TransactionStatus[] = [
   'Failed',
 ];
 
+const SearchInput = ({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <div>
+      <label
+        htmlFor="search"
+        className="block text-sm font-medium text-gray-700 mb-1"
+      >
+        {t('dashboard.search.label')}
+      </label>
+      <input
+        type="text"
+        id="search"
+        value={value}
+        onChange={onChange}
+        placeholder={t('dashboard.search.placeholder')}
+        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+      />
+    </div>
+  );
+};
+
+const StatusFilter = ({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
+}) => {
+  const { t } = useTranslation();
+  return (
+    <div>
+      <label
+        htmlFor="status"
+        className="block text-sm font-medium text-gray-700 mb-1"
+      >
+        {t('dashboard.filters.status.label')}
+      </label>
+      <select
+        id="status"
+        value={value}
+        onChange={onChange}
+        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+      >
+        <option value="">{t('dashboard.filters.status.all')}</option>
+        {statusOptions.map((status) => (
+          <option key={status} value={status}>
+            {t(
+              `dashboard.filters.status.${status.toLowerCase().replace(' ', '')}`
+            )}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+
+const DateFilter = ({
+  label,
+  id,
+  value,
+  onChange,
+  min,
+  max,
+}: {
+  label: string;
+  id: 'startDate' | 'endDate';
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  min?: string;
+  max?: string;
+}) => {
+  return (
+    <div>
+      <label
+        htmlFor={id}
+        className="block text-sm font-medium text-gray-700 mb-1"
+      >
+        {label}
+      </label>
+      <input
+        type="date"
+        id={id}
+        value={value}
+        onChange={onChange}
+        min={min}
+        max={max}
+        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+      />
+    </div>
+  );
+};
+
 const TransactionFiltersComponent: React.FC<TransactionFiltersProps> = ({
   filters,
   onFilterChange,
 }) => {
   const { t } = useTranslation();
+  const [localFilters, setLocalFilters] = useState(filters);
 
-  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onFilterChange({ search: e.target.value });
-  };
-
-  const handleStatusChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    onFilterChange({ status: e.target.value as TransactionStatus | '' });
-  };
+  const handleInputChange =
+    (field: keyof TransactionFilters) =>
+    (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      setLocalFilters((prev) => ({ ...prev, [field]: e.target.value }));
+    };
 
   const handleDateChange =
     (field: 'startDate' | 'endDate') => (e: ChangeEvent<HTMLInputElement>) => {
       const newDate = e.target.value;
 
-      // If setting start date, ensure it's not after end date
       if (
         field === 'startDate' &&
-        filters.endDate &&
-        newDate > filters.endDate
+        localFilters.endDate &&
+        newDate > localFilters.endDate
       ) {
-        onFilterChange({ startDate: newDate, endDate: newDate });
+        setLocalFilters((prev) => ({
+          ...prev,
+          startDate: newDate,
+          endDate: newDate,
+        }));
         return;
       }
-
-      // If setting end date, ensure it's not before start date
       if (
         field === 'endDate' &&
-        filters.startDate &&
-        newDate < filters.startDate
+        localFilters.startDate &&
+        newDate < localFilters.startDate
       ) {
-        onFilterChange({ endDate: filters.startDate });
+        setLocalFilters((prev) => ({
+          ...prev,
+          endDate: localFilters.startDate,
+        }));
         return;
       }
-
-      onFilterChange({ [field]: newDate });
+      setLocalFilters((prev) => ({ ...prev, [field]: newDate }));
     };
 
-  const getStatusTranslation = (status: string) => {
-    const statusKey = status.toLowerCase().replace(' ', '');
-    return t(`dashboard.filters.status.${statusKey}`);
+  const handleSearchSubmit = () => {
+    onFilterChange(localFilters);
   };
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Search Input */}
-        <div>
-          <label
-            htmlFor="search"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            {t('dashboard.search.label')}
-          </label>
-          <input
-            type="text"
-            id="search"
-            value={filters.search}
-            onChange={handleSearchChange}
-            placeholder={t('dashboard.search.placeholder')}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
-
-        {/* Status Filter */}
-        <div>
-          <label
-            htmlFor="status"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            {t('dashboard.filters.status.label')}
-          </label>
-          <select
-            id="status"
-            value={filters.status}
-            onChange={handleStatusChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="">{t('dashboard.filters.status.all')}</option>
-            {statusOptions.map((status) => (
-              <option key={status} value={status}>
-                {getStatusTranslation(status)}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Date Range Filters */}
-        <div>
-          <label
-            htmlFor="startDate"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            {t('dashboard.filters.date.startDate')}
-          </label>
-          <input
-            type="date"
-            id="startDate"
-            value={filters.startDate}
-            onChange={handleDateChange('startDate')}
-            max={filters.endDate || undefined}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
-
-        <div>
-          <label
-            htmlFor="endDate"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            {t('dashboard.filters.date.endDate')}
-          </label>
-          <input
-            type="date"
-            id="endDate"
-            value={filters.endDate}
-            onChange={handleDateChange('endDate')}
-            min={filters.startDate || undefined}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-          />
-        </div>
+        <SearchInput
+          value={localFilters.search}
+          onChange={handleInputChange('search')}
+        />
+        <StatusFilter
+          value={localFilters.status}
+          onChange={handleInputChange('status')}
+        />
+        <DateFilter
+          label={t('dashboard.filters.date.startDate')}
+          id="startDate"
+          value={localFilters.startDate}
+          onChange={handleDateChange('startDate')}
+          max={localFilters.endDate}
+        />
+        <DateFilter
+          label={t('dashboard.filters.date.endDate')}
+          id="endDate"
+          value={localFilters.endDate}
+          onChange={handleDateChange('endDate')}
+          min={localFilters.startDate}
+        />
+      </div>
+      <div className="mt-4 text-right">
+        <Button onClick={handleSearchSubmit}>
+          {t('dashboard.search.label')}
+        </Button>
       </div>
     </div>
   );

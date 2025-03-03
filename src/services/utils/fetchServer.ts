@@ -1,7 +1,7 @@
 import axios, { AxiosError, Method } from 'axios';
 import axiosInstance from './AxiosInstance';
 
-class FetchApiError {
+export class FetchApiError {
   status: number;
   message: string;
 

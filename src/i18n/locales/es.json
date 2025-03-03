@@ -4,13 +4,13 @@
     "spanish": "Español"
   },
   "errors": {
-    "loadingTransactions": "Error al cargar las transacciones. Por favor, inténtelo de nuevo más tarde."
+    "noData": "No hay datos para su busqueda"
   },
   "common": {
     "close": "Cerrar"
   },
   "dashboard": {
-    "title": "Panel de Remesas",
+    "title": "Panel de Envíos",
     "search": {
       "placeholder": "Buscar por WhatsApp o ID...",
       "label": "Buscar"
@@ -77,7 +77,9 @@
       "method": "Método",
       "additional_details": "Detalles Adicionales",
       "status_tracking": "Seguimiento del Estado",
-      "transaction_date": "Fecha de Transacción"
+      "transaction_date": "Fecha de Transacción",
+      "download_pdf": "Descargar PDF",
+      "share_whatsapp": "Comparte en WhatsApp"
     }
   },
   "user": {
@@ -92,6 +94,7 @@
       "credit_card": "Tarjeta de Crédito",
       "debit_card": "Tarjeta de Débito",
       "bank_transfer": "Transferencia Bancaria",
+      "bank_deposit": "Deposito Bancario",
       "cash": "Efectivo",
       "crypto": "Criptomoneda",
       "mobile_wallet": "Billetera Móvil"

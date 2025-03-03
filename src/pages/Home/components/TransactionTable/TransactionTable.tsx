@@ -39,7 +39,6 @@ const TransactionTable: React.FC<TransactionTableProps> = ({
   const { t } = useTranslation();
 
   if (isLoading) return <LoadingSpinner />;
-  if (error) return <ErrorMessage message={t('errors.loadingTransactions')} />;
 
   const headers = [
     t('dashboard.table.senderWhatsapp'),
@@ -69,10 +68,6 @@ const TransactionTable: React.FC<TransactionTableProps> = ({
     return t(`dashboard.filters.status.${statusKey}`);
   };
 
-  if (!data) {
-    return null;
-  }
-
   return (
     <div className="container mx-auto px-4 py-8">
       <TransactionFiltersComponent
@@ -80,47 +75,57 @@ const TransactionTable: React.FC<TransactionTableProps> = ({
         onFilterChange={onFilterChange}
       />
 
-      <div className="mt-8">
-        <Table>
-          <TableHeader headers={headers} />
-          <TableBody>
-            {data.map((transaction: Transaction) => (
-              <TableRow
-                key={transaction.transaction_id}
-                onClick={() => onSelect(transaction)}
-              >
-                <TableCell>{transaction.sender_whatsapp}</TableCell>
-                <TableCell>{transaction.receiver_whatsapp}</TableCell>
-                <TableCell>${transaction.amount_sent.toFixed(2)} USD</TableCell>
-                <TableCell>
-                  {transaction.amount_received.toFixed(2)}{' '}
-                  {transaction.currency_received}
-                </TableCell>
-                <TableCell>
-                  1 USD = {transaction.exchange_rate.toFixed(4)}{' '}
-                  {transaction.currency_received}
-                </TableCell>
-                <TableCell>
-                  <span className={getStatusClass(transaction.status)}>
-                    {getStatusTranslation(transaction.status)}
-                  </span>
-                </TableCell>
-                <TableCell>
-                  {new Date(transaction.date).toLocaleString()}
-                </TableCell>
-                <TableCell>{transaction.payment_method}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+      {error || !data ? (
+        <ErrorMessage message={t('errors.noData')} />
+      ) : (
+        <>
+          <div className="mt-8">
+            <Table>
+              <TableHeader headers={headers} />
+              <TableBody>
+                {data.map((transaction: Transaction) => (
+                  <TableRow
+                    key={transaction.transaction_id}
+                    onClick={() => onSelect(transaction)}
+                  >
+                    <TableCell>{transaction.sender_whatsapp}</TableCell>
+                    <TableCell>{transaction.receiver_whatsapp}</TableCell>
+                    <TableCell>
+                      ${transaction.amount_sent.toFixed(2)} USD
+                    </TableCell>
+                    <TableCell>
+                      {transaction.amount_received.toFixed(2)}{' '}
+                      {transaction.currency_received}
+                    </TableCell>
+                    <TableCell>
+                      1 USD = {transaction.exchange_rate.toFixed(4)}{' '}
+                      {transaction.currency_received}
+                    </TableCell>
+                    <TableCell>
+                      <span className={getStatusClass(transaction.status)}>
+                        {getStatusTranslation(transaction.status)}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      {new Date(transaction.date).toLocaleString()}
+                    </TableCell>
+                    <TableCell>{transaction.payment_method}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
 
-      <Pagination
-        currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-        onPageChange={onPageChange}
-        className="mt-4"
-      />
+          {data.length === 10 && ( //dev comment: this is because we don't have the total amount in mocked api response. it should be removed once we have total amount
+            <Pagination
+              currentPage={currentPage}
+              itemsPerPage={itemsPerPage}
+              onPageChange={onPageChange}
+              className="mt-4"
+            />
+          )}
+        </>
+      )}
     </div>
   );
 };

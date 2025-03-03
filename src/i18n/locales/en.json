@@ -4,7 +4,7 @@
     "spanish": "Español"
   },
   "errors": {
-    "loadingTransactions": "Error loading transactions. Please try again later."
+    "noData": "There is no data for your search"
   },
   "common": {
     "close": "Close"
@@ -77,7 +77,9 @@
       "method": "Method",
       "additional_details": "Additional Details",
       "status_tracking": "Status Tracking",
-      "transaction_date": "Transaction Date"
+      "transaction_date": "Transaction Date",
+      "download_pdf": "Download PDF",
+      "share_whatsapp": "Share on WhatsApp"
     }
   },
   "user": {
@@ -92,6 +94,7 @@
       "credit_card": "Credit Card",
       "debit_card": "Debit Card",
       "bank_transfer": "Bank Transfer",
+      "bank_deposit": "Bank Deposit",
       "cash": "Cash",
       "crypto": "Cryptocurrency",
       "mobile_wallet": "Mobile Wallet"

@@ -1,7 +1,11 @@
-import { useEffect } from 'react';
+'use client';
+
+import type React from 'react';
+
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Transaction } from '../../../../types/transaction';
-import { UserDetails } from '../../../../types/user';
+import type { Transaction } from '../../../../types/transaction';
+import type { UserDetails } from '../../../../types/user';
 import useClickOutside from '../../../../hooks/useClickOutside';
 import useKeyPress from '../../../../hooks/useKeyPress';
 import CloseButton from '../../../../components/ui/buttons/CloseButton';
@@ -10,6 +14,13 @@ import UserDetailsCard from '../UserDetailsCard/UserDetailsCard';
 import TransferDetails from '../TransactionDetails/TransferDetails';
 import PaymentDetails from '../TransactionDetails/PaymentDetails';
 import LoadingSpinner from '../../../../components/ui/loading/LoadingSpinner';
+import {
+  ReceiveIcon,
+  SendIcon,
+  ShareIcon,
+} from '../../../../components/ui/icons';
+import TransactionPDF from '../TransactionPDF/TransactionPDF';
+import Button from '../../../../components/ui/buttons/Button';
 
 interface TransactionModalProps {
   transaction: Transaction;
@@ -29,6 +40,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
   const { t } = useTranslation();
   const modalRef = useClickOutside<HTMLDivElement>(onClose);
   useKeyPress('Escape', onClose);
+  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
 
   // Prevent background scrolling when modal is open
   useEffect(() => {
@@ -37,6 +49,19 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
       document.body.style.overflow = 'unset';
     };
   }, []);
+
+  const handleShare = () => {
+    if (pdfUrl) {
+      const message = encodeURIComponent(
+        `Check out this transaction details: ${pdfUrl}`
+      );
+      window.open(`https://wa.me/?text=${message}`, '_blank');
+    }
+  };
+
+  const handlePDFGenerated = (url: string) => {
+    setPdfUrl(url);
+  };
 
   if (isLoadingDetails) {
     return <LoadingSpinner />;
@@ -57,22 +82,39 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
               {t('transaction.modal.id')}: {transaction.transaction_id}
             </p>
           </div>
-          <CloseButton onClick={onClose} />
+          <div className="flex items-center space-x-2">
+            <TransactionPDF
+              transaction={transaction}
+              senderDetails={senderDetails}
+              receiverDetails={receiverDetails}
+              onPDFGenerated={handlePDFGenerated}
+            />
+            <Button
+              icon={<ShareIcon />}
+              onClick={handleShare}
+              className="bg-green-500 hover:bg-green-600"
+            >
+              {t('transaction.modal.share_whatsapp')}
+            </Button>
+            <CloseButton onClick={onClose} />
+          </div>
         </div>
 
         <div className="space-y-6">
           <div className="bg-gray-50 p-4 rounded-lg">
-            <h3 className="text-sm font-medium text-gray-500 mb-3">
+            <h3 className="text-lg font-medium text-gray-500 mb-3">
               {t('transaction.modal.contact_details')}
             </h3>
             <div className="grid grid-cols-2 gap-4">
               <UserDetailsCard
                 label={t('transaction.modal.sender')}
                 details={senderDetails}
+                icon={<SendIcon />}
               />
               <UserDetailsCard
                 label={t('transaction.modal.receiver')}
                 details={receiverDetails}
+                icon={<ReceiveIcon />}
               />
             </div>
           </div>
@@ -91,7 +133,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
           />
 
           <div className="bg-gray-50 p-4 rounded-lg">
-            <h3 className="text-sm font-medium text-gray-500 mb-4">
+            <h3 className="text-lg font-medium text-gray-500 mb-4">
               {t('transaction.modal.status_tracking')}
             </h3>
             <StatusSteps currentStatus={transaction.status} />

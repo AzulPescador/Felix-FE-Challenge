@@ -1,11 +1,7 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { TransactionFilters, Transaction } from '../types/transaction';
 import { fetchServer } from '../services/utils/fetchServer';
-
-interface TransactionsResult {
-  transactions: Transaction[];
-  total: number;
-}
+import { FetchApiError } from '../services/utils/fetchServer';
 
 const getTransactionsEndpoint = (
   filters: TransactionFilters,
@@ -14,11 +10,13 @@ const getTransactionsEndpoint = (
 ) => {
   const queryParams = new URLSearchParams();
 
-  if (filters.search) queryParams.append('search', filters.search);
+  if (filters.search) {
+    const sanitizedSearch = filters.search.replace(/\+/g, '');
+    queryParams.append('search', sanitizedSearch);
+  }
   if (filters.status) queryParams.append('status', filters.status);
-  if (filters.startDate) queryParams.append('startDate', filters.startDate);
-  if (filters.endDate) queryParams.append('endDate', filters.endDate);
 
+  // Do not send date filters in the request, we will filter on the frontend
   queryParams.append('page', page.toString());
   queryParams.append('limit', limit.toString());
 
@@ -29,17 +27,38 @@ const useGetTransactions = (
   filters: TransactionFilters,
   page: number = 1,
   limit: number = 10
-): UseQueryResult<TransactionsResult, Error> => {
+): UseQueryResult<Transaction[], Error> => {
   return useQuery({
     queryKey: ['transactions', filters, page, limit],
     queryFn: async () => {
-      return await fetchServer({
+      const result = await fetchServer({
         method: 'GET',
         url: getTransactionsEndpoint(filters, page, limit),
-        useToken: true,
       });
+
+      // Filter transactions by date on the frontend since MockAPI does not support date range filtering
+      let filteredTransactions = result;
+      if (filters.startDate && filters.endDate) {
+        const startDate = new Date(filters.startDate);
+        const endDate = new Date(filters.endDate);
+
+        filteredTransactions = filteredTransactions.filter(
+          (transaction: Transaction) => {
+            const transactionDate = new Date(transaction.date);
+            return transactionDate >= startDate && transactionDate <= endDate;
+          }
+        );
+      }
+
+      return filteredTransactions;
     },
     keepPreviousData: true,
+    retry: (failureCount, error) => {
+      if (error instanceof FetchApiError && error.status === 404) {
+        return false;
+      }
+      return failureCount < 3;
+    },
   });
 };
 
