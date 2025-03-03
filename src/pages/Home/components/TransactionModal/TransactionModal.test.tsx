@@ -8,7 +8,7 @@ import type { UserDetails } from '../../../../types/user';
 // Mock PDF generation
 jest.mock('../TransactionPDF/TransactionPDF', () => ({
   __esModule: true,
-  default: ({ onPDFGenerated }) => {
+  default: ({ onPDFGenerated }: { onPDFGenerated: (url: string) => void }) => {
     return (
       <button
         onClick={() => onPDFGenerated('mock-pdf-url')}

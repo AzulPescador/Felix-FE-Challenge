@@ -19,6 +19,8 @@ const Home = () => {
     null
   );
   const [filters, setFilters] = useState<TransactionFiltersType>({
+    limit: 10,
+    page: 1,
     search: '',
     status: '',
     startDate: '',

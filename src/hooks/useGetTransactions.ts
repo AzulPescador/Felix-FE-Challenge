@@ -52,7 +52,7 @@ const useGetTransactions = (
 
       return filteredTransactions;
     },
-    keepPreviousData: true,
+    placeholderData: (previousData) => previousData,
     retry: (failureCount, error) => {
       if (error instanceof FetchApiError && error.status === 404) {
         return false;
