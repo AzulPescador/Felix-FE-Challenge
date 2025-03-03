@@ -13,6 +13,7 @@ const Logo: React.FC<LogoProps> = ({
 }) => {
   return (
     <svg
+      role="logo"
       width={width}
       height={height}
       viewBox="0 0 87 24"

@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { LanguageButton } from '../LanguageButton';
 import { USFlag, SpainFlag } from '../ui/icons';
 import Logo from '../Logo/Logo';
+import LanguageButton from '../LanguageButton/LanguageButton';
 
 const Header = () => {
   const { t } = useTranslation();

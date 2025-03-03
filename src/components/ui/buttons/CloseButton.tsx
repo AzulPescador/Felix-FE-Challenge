@@ -3,9 +3,13 @@ interface CloseButtonProps {
   className?: string;
 }
 
-const CloseButton: React.FC<CloseButtonProps> = ({ onClick, className = '' }) => {
+const CloseButton: React.FC<CloseButtonProps> = ({
+  onClick,
+  className = '',
+}) => {
   return (
     <button
+      role="close"
       onClick={onClick}
       className={`text-gray-500 hover:text-gray-700 ${className}`}
     >
@@ -26,4 +30,4 @@ const CloseButton: React.FC<CloseButtonProps> = ({ onClick, className = '' }) =>
   );
 };
 
-export default CloseButton; 
+export default CloseButton;

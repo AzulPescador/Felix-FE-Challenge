@@ -1,130 +1,161 @@
-# Félix Pago Remittance Dashboard
+# ![Felix Pago Logo](favicon.png) Felix Pago - Remittance Dashboard
 
-A web-based dashboard for tracking remittance transactions processed via WhatsApp. This application allows users to search, filter, and track the status of their money transfers efficiently.
+
+
+## Objective
+ 
+The objective of this code is to respond to the functionality presented in the Felix frontend challenge.
+
+### Developer:
+#### Guillermo Agustín Chiarotto
+#### Email: agustin.chiarotto.dev@gmail.com 
+#### Phone: +542994575660 
+#### Linkedin: https://www.linkedin.com/in/agustinchiarotto/
 
 ## Features
 
-- 📱 Responsive design that works on mobile, tablet, and desktop
-- 🔍 Advanced search and filtering capabilities
-- 📊 Detailed transaction information
-- 🌐 Internationalization support (English/Spanish)
-- 📝 Clean and modern UI with Tailwind CSS
-- ⚡ Built with React and TypeScript for type safety
-- 🧪 Comprehensive test coverage
+- **Transaction Management**: View, filter, and search through remittance transactions
+- **Detailed Transaction View**: By clicking in a row, access comprehensive information about each transaction
+- **Multi-language Support**: Toggle between English and Spanish interfaces
+- **Responsive Design**: Optimized for both desktop and mobile devices
+- **PDF Generation**: Download transaction details as PDF documents
+- **Status Tracking**: Visual representation of transaction status
 
 ## Tech Stack
 
-- React 18
-- TypeScript
-- Vite
-- React Query for data fetching
-- TailwindCSS for styling
-- i18next for internationalization
-- Vitest for testing
+- **Frontend Framework**: React with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **State Management**: React Query for server state
+- **Internationalization**: i18next
+- **PDF Generation**: @react-pdf/renderer
+- **HTTP Client**: Axios
 
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js (v16 or higher)
-- npm (v7 or higher)
+- npm or yarn
 
 ### Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/felix-pago-dashboard.git
-   cd felix-pago-dashboard
-   ```
+   git clone https://github.com/AzulPescador/Felix-FE-Challenge.git
+   cd felix-pago
 
 2. Install dependencies:
-   ```bash
-   npm install
-   ```
 
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
+```shellscript
+npm install
+# or
+yarn
+```
 
-4. Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
 
-### Available Scripts
+3. Create a `.env` file in the root directory with the following variables:
 
-- `npm run dev` - Starts the development server
-- `npm run build` - Builds the app for production
-- `npm run preview` - Locally preview production build
-- `npm run test` - Run tests
-- `npm run test:coverage` - Run tests with coverage report
-- `npm run lint` - Run ESLint
-- `npm run lint:fix` - Fix ESLint errors
+```plaintext
+VITE_APP_BACK_URL=your_api_url
+VITE_APP_ENV=development
+```
+
+
+
+
+### Running the Application
+
+1. Start the development server:
+
+```shellscript
+npm run dev
+# or
+yarn dev
+```
+
+
+2. Open your browser and navigate to `http://localhost:5173`
 
 ## Project Structure
 
+```plaintext
+felix-pago/
+├── public/                 # Static assets
+├── src/
+│   ├── components/         # Reusable UI components
+│   ├── constants/          # Application constants
+│   ├── hooks/              # Custom React hooks
+│   ├── i18n/               # Internationalization files
+│   ├── pages/              # Application pages - Page specific components
+│   ├── services/           # API services
+│   ├── types/              # TypeScript type definitions
+│   ├── App.tsx             # Main application component
+│   └── main.tsx            # Application entry point
+├── .env                    # Environment variables
+├── index.html              # HTML template
+├── package.json            # Project dependencies
+├── tailwind.config.js      # Tailwind CSS configuration
+├── tsconfig.json           # TypeScript configuration
+└── vite.config.ts          # Vite configuration
 ```
-src/
-├── components/          # React components
-│   ├── TransactionList/
-│   ├── TransactionFilters/
-│   └── TransactionModal/
-├── services/           # API services
-├── types/              # TypeScript types
-├── i18n/              # Internationalization
-│   └── locales/       # Translation files
-├── App.tsx            # Main App component
-└── main.tsx           # Entry point
-```
 
-## Features Implementation
+## Key Components
 
-### Transaction List
-- Displays remittance transactions with key details
-- Supports pagination
-- Responsive table design
+### TransactionTable
 
-### Search and Filtering
-- Search by WhatsApp number or Transaction ID
-- Filter by status and date range
-- Real-time filtering
+The `TransactionTable` component is the core of the dashboard, displaying all transactions in a tabular format. It includes:
 
-### Transaction Details
-- Modal view with comprehensive transaction information
-- Status tracking
-- Payment method details
+- Pagination for handling large datasets
+- Integration with the filtering system
+
+
+### TransactionModal
+
+The `TransactionModal` component provides a detailed view of a selected transaction, including:
+
+- Sender and receiver information
+- Transaction status and history
+- Payment details
+- Options to download PDF
+
+
+### TransactionFilters
+
+The `TransactionFilters` component allows users to filter transactions based on various criteria:
+
+- Date range
+- Transaction status
+- Search by sender or receiver information
+
 
 ### Internationalization
-- Supports English and Spanish
-- Easy language switching
-- Extensible for additional languages
+
+The application uses i18next for internationalization. Language files are stored in `src/i18n/locales/` and can be easily extended to support additional languages.
+
+## State Management
+
+React Query is used for managing server state, providing:
+
+- Efficient data fetching and caching
+- Automatic refetching and background updates
+
+
+## Styling
+
+Tailwind CSS is used for styling, providing:
+
+- Rapid UI development
+- Consistent design across the application
+- Easy customization and theming
 
 ## Testing
 
-The project includes unit tests for components and integration tests for key features. Run tests with:
+The project includes a comprehensive test suite using Jest and React Testing Library. To run the tests:
 
-```bash
+```shellscript
 npm run test
+# or
+yarn test
 ```
 
-For test coverage report:
-
-```bash
-npm run test:coverage
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Félix Pago for the challenge opportunity
-- React and TypeScript communities for excellent documentation
-- TailwindCSS for the utility-first CSS framework
