@@ -31,6 +31,12 @@ The objective of this code is to respond to the functionality presented in the F
 - **PDF Generation**: @react-pdf/renderer
 - **HTTP Client**: Axios
 
+## Demo
+![demo1](https://github.com/user-attachments/assets/34baa19c-44de-4e56-aaa1-bc3b2ce03458)
+![demo2](https://github.com/user-attachments/assets/4c751cb0-06cb-4043-8ed3-ea0107178ca5)
+![demo3](https://github.com/user-attachments/assets/a3e911cb-fd0f-42f1-aa83-d8c2a0154793)
+![demo4](https://github.com/user-attachments/assets/c19b68f9-68bc-4721-a13b-efb56a64e3c0)
+
 ## Getting Started
 
 ### Prerequisites
