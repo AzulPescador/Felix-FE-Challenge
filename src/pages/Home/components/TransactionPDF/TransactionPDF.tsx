@@ -123,8 +123,10 @@ const TransactionPDF: React.FC<TransactionPDFProps> = ({
             Loading document...
           </button>
         ) : (
-          <Button icon={<DownloadIcon />}>
-            {t('transaction.modal.download_pdf')}
+          <Button icon={<DownloadIcon />} className="max-w-28 md:max-w-full">
+            <span className="text-xs md:text-sm">
+              {t('transaction.modal.download_pdf')}{' '}
+            </span>
           </Button>
         );
       }}

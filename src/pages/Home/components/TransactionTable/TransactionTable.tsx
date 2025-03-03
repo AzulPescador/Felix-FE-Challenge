@@ -116,7 +116,7 @@ const TransactionTable: React.FC<TransactionTableProps> = ({
             </Table>
           </div>
 
-          {data.length === 10 && ( //dev comment: this is because we don't have the total amount in mocked api response. it should be removed once we have total amount
+          {(data.length === 10 || currentPage !== 1) && ( //dev comment: this is because we don't have the total amount in mocked api response. it should be removed once we have total amount
             <Pagination
               currentPage={currentPage}
               itemsPerPage={itemsPerPage}

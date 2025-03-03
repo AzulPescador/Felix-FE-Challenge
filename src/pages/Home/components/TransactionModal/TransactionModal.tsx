@@ -82,7 +82,7 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
               {t('transaction.modal.id')}: {transaction.transaction_id}
             </p>
           </div>
-          <div className="flex items-center space-x-2">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-1 md:gap-2">
             <TransactionPDF
               transaction={transaction}
               senderDetails={senderDetails}
@@ -92,12 +92,14 @@ const TransactionModal: React.FC<TransactionModalProps> = ({
             <Button
               icon={<ShareIcon />}
               onClick={handleShare}
-              className="bg-green-500 hover:bg-green-600"
+              className="bg-green-500 hover:bg-green-600 max-w-28 md:max-w-full"
             >
-              {t('transaction.modal.share_whatsapp')}
+              <span className="text-xs md:text-sm">
+                {t('transaction.modal.share_whatsapp')}
+              </span>
             </Button>
-            <CloseButton onClick={onClose} />
           </div>
+          <CloseButton onClick={onClose} />
         </div>
 
         <div className="space-y-6">

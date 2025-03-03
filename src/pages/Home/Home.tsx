@@ -32,8 +32,6 @@ const Home = () => {
     ITEMS_PER_PAGE
   );
 
-  console.log('@@@@ isLoading: ', isLoading);
-
   const { data: senderData, isLoading: isLoadingSender } =
     useGetUserByWhatsappNumber(selectedTransaction?.sender_whatsapp || '');
   const { data: receiverData, isLoading: isLoadingReceiver } =
