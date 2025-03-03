@@ -97,7 +97,8 @@
       "bank_deposit": "Deposito Bancario",
       "cash": "Efectivo",
       "crypto": "Criptomoneda",
-      "mobile_wallet": "Billetera Móvil"
+      "mobile_wallet": "Billetera Móvil",
+      "cash_pickup": "Retiro de efectivo"
     }
   }
 } 

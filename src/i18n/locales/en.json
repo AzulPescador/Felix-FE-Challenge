@@ -97,7 +97,8 @@
       "bank_deposit": "Bank Deposit",
       "cash": "Cash",
       "crypto": "Cryptocurrency",
-      "mobile_wallet": "Mobile Wallet"
+      "mobile_wallet": "Mobile Wallet",
+      "cash_pickup": "Cash Pick up"
     }
   }
 } 
